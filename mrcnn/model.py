@@ -2242,7 +2242,7 @@ class MaskRCNN():
         self.checkpoint_path = self.checkpoint_path.replace(
             "*epoch*", "{epoch:04d}")
 
-    def train(self, train_dataset, val_dataset, learning_rate, epochs, layers, augment=augment,
+    def train(self, train_dataset, val_dataset, learning_rate, epochs, layers, augment=False,
               augmentation=None, custom_callbacks=None, no_augmentation_sources=None):
         """Train the model.
         train_dataset, val_dataset: Training and validation Dataset objects.

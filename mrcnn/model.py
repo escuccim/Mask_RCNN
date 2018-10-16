@@ -2325,7 +2325,8 @@ class MaskRCNN():
         else:
             workers = multiprocessing.cpu_count()
 
-        self.keras_model.fit_generator(
+        # save the history so we can plot it if we want
+        history = self.keras_model.fit_generator(
             train_generator,
             initial_epoch=self.epoch,
             epochs=epochs,
@@ -2337,6 +2338,13 @@ class MaskRCNN():
             workers=workers,
             use_multiprocessing=True,
         )
+
+        # try to add the history to the old history, if it fails reset the history
+        try:
+            for k in history: self.history[k] = self.history[k] + history[k]
+        except:
+            self.history = history
+
         self.epoch = max(self.epoch, epochs)
 
     def mold_inputs(self, images):
